@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_data_mahasiswa,data_mahasiswa,model_data_mahasiswa,base.group_user,1,1,1,1
+access_data_dosen,data_dosen,model_data_dosen,base.group_user,1,1,1,1
+access_data_ukm,data_ukm,model_data_ukm,base.group_user,1,1,1,1
+

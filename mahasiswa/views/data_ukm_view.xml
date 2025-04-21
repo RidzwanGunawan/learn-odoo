@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="data_ukm_view_tree" model="ir.ui.view">
+        <field name="name">data.ukm.view.tree</field>
+        <field name="model">data.ukm</field>
+        <field name="arch" type="xml">
+            <list string="ukm">
+                <field name="nama" />
+                <field name="kategori" />
+                <field name="foto_ukm" widget='image' filename='logo_foto_ukm' class='oe_avatar' options="{'size': [90, 90]}" />
+                <field name="logo_foto_ukm" />
+                <field name="mahasiswa_ids" />
+
+            </list>
+        </field>
+    </record>
+
+    <record id="data_ukm_view_form" model="ir.ui.view">
+        <field name="name">data.ukm.view.form</field>
+        <field name="model">data.ukm</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="nama" />
+                        <field name="kategori" />
+                        <field name="foto_ukm" widget='image' filename='logo_foto_ukm' class='oe_avatar' options="{'size': [90, 90]}" />
+                        <field name="logo_foto_ukm" />
+                        <field name="mahasiswa_ids" />
+                        <button name="create_new_ukm" type="object" string="Create Multiple UKM" class="btn-primary"/>
+                        <button name="write_data_ukm" type="object" string="Update UKM" class="btn-primary"/>
+                        <button name="unlink" type="object" string="Hapus UKM" class="btn-primary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="data_ukm_action" model="ir.actions.act_window">
+        <field name="name">UKM</field>
+        <field name="res_model">data.ukm</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="data_ukm_menu"
+        name="List UKM"
+        action="data_ukm_action"
+        parent="data_mahasiswa_sub_root_menu"
+        sequence="10"/>
+</odoo>
