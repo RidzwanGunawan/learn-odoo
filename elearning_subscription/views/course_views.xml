@@ -1,0 +1,60 @@
+<odoo>
+  <!-- FORM VIEW DENGAN STYLING -->
+  <record id="view_form_course" model="ir.ui.view">
+    <field name="name">elearning.course.form</field>
+    <field name="model">elearning.course</field>
+    <field name="arch" type="xml">
+      <form string="Course Details" class="oe_form o_form_sheet_bg">
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" placeholder="Course Title..."/>
+            </h1>
+          </div>
+          <div class="oe_button_box" name="button_box">
+            <!-- bisa tambahkan tombol custom di sini nanti -->
+          </div>
+
+          <group class="oe_group_left" colspan="2">
+            <group string="Course Info" class="oe_subgroup">
+              <field name="description" widget="html"/>
+              <field name="category_id"/>
+            </group>
+
+            <group string="Details" class="oe_subgroup">
+              <field name="price" widget="monetary"/>
+              <field name="duration_days"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- TREE VIEW YANG RAPIH -->
+  <record id="view_tree_course" model="ir.ui.view">
+    <field name="name">elearning.course.tree</field>
+    <field name="model">elearning.course</field>
+    <field name="arch" type="xml">
+      <list string="Course List" decoration-success="duration_days &gt; 0">
+        <field name="name"/>
+        <field name="category_id"/>
+        <field name="price"/>
+        <field name="duration_days"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- ACTION WINDOW -->
+  <record id="action_elearning_course" model="ir.actions.act_window">
+    <field name="name">Courses</field>
+    <field name="res_model">elearning.course</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <!-- MENU ITEM -->
+  <menuitem id="menu_elearning_course_action"
+            name="All Courses"
+            parent="menu_elearning_course"
+            action="action_elearning_course"/>
+</odoo>

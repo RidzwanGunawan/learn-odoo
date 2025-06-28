@@ -1,0 +1,47 @@
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_form_material" model="ir.ui.view">
+        <field name="name">elearning.course.material.form</field>
+        <field name="model">elearning.course.material</field>
+        <field name="arch" type="xml">
+            <form string="Course Material" class="oe_form o_form_sheet_bg">
+                <sheet>
+                    <group>
+                        <group string="Material Info" col="2">
+                            <field name="course_id"/>
+                            <field name="title"/>
+                            <field name="content_type"/>
+                        </group>
+                        <group string="Content" col="2">
+                            <field name="file" modifiers="{'invisible': [('content_type', '!=', 'pdf')]}"/>
+                            <field name="url" modifiers="{'invisible': [('content_type', '!=', 'link')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_tree_material" model="ir.ui.view">
+        <field name="name">elearning.course.material.tree</field>
+        <field name="model">elearning.course.material</field>
+        <field name="arch" type="xml">
+            <list string="Course Materials">
+                <field name="course_id"/>
+                <field name="title"/>
+                <field name="content_type"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_elearning_material" model="ir.actions.act_window">
+        <field name="name">Course Materials</field>
+        <field name="res_model">elearning.course.material</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- MENU -->
+    <menuitem id="menu_elearning_material" name="Materials" parent="menu_elearning_course" action="action_elearning_material"/>
+</odoo>

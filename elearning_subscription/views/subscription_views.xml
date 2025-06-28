@@ -1,0 +1,98 @@
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_form_subscription" model="ir.ui.view">
+        <field name="name">elearning.subscription.form</field>
+        <field name="model">elearning.subscription</field>
+        <field name="arch" type="xml">
+            <form string="Subscription" class="oe_form o_form_sheet_bg">
+                <!-- ✅ Tambahkan header -->
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,expired" statusbar_colors='{"active":"green","expired":"red"}'/>
+
+                    <!-- Simpel: tombol tetap ditampilkan, tetapi isi method akan atur -->
+                    <button name="action_activate" type="object" string="Activate" class="btn-primary"/>
+                    <button name="action_expire" type="object" string="Mark Expired" class="btn-danger"/>
+                </header>
+
+                <sheet>
+                    <group string="Subscription Info" col="2">
+                        <field name="user_id"/>
+                        <field name="course_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date" readonly="1"/>
+                        <!-- ✅ Sembunyikan field state karena sudah ditampilkan di header -->
+                        <field name="state" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_tree_subscription" model="ir.ui.view">
+        <field name="name">elearning.subscription.tree</field>
+        <field name="model">elearning.subscription</field>
+        <field name="arch" type="xml">
+            <list string="Subscriptions" decoration-info="state == 'active'" decoration-muted="state == 'expired'">
+                <field name="user_id"/>
+                <field name="course_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- KANBAN VIEW -->
+    <record id="view_kanban_subscription" model="ir.ui.view">
+        <field name="name">elearning.subscription.kanban</field>
+        <field name="model">elearning.subscription</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" default_group_by="state">
+                <field name="user_id"/>
+                <field name="course_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+                <field name="progress"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="o_kanban_details">
+                                <strong>
+                                    <field name="user_id"/>
+                                </strong>
+                                <br/>
+                                <span>Course: <field name="course_id"/>
+                                </span>
+                                <br/>
+                                <span>Start: <field name="start_date"/>
+                                </span>
+                                <br/>
+                                <span>End: <field name="end_date"/>
+                                </span>
+                                <br/>
+                                <span>Status: <field name="state"/>
+                                </span>
+
+                                <!-- ✅ Progress bar -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- ACTION -->
+    <record id="action_elearning_subscription" model="ir.actions.act_window">
+        <field name="name">Subscriptions</field>
+        <field name="res_model">elearning.subscription</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- MENU -->
+    <menuitem id="menu_elearning_subscription" name="Subscriptions" parent="menu_elearning_course" action="action_elearning_subscription"/>
+</odoo>

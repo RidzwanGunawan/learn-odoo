@@ -1,0 +1,4 @@
+<odoo>
+    <menuitem id="menu_elearning_root" name="E-Learning"/>
+    <menuitem id="menu_elearning_course" name="Courses" parent="menu_elearning_root"/>
+</odoo>

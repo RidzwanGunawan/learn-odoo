@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_elearning_course,elearning.course,model_elearning_course,,1,1,1,1
+access_elearning_material,elearning.course.material,model_elearning_course_material,,1,1,1,1
+access_course_category_user,access.course.category.user,model_elearning_course_category,,1,1,1,1
+access_elearning_subscription_user,access_elearning_subscription_user,model_elearning_subscription,,1,1,1,1

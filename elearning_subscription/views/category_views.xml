@@ -1,0 +1,31 @@
+<odoo>
+    <record id="view_form_category" model="ir.ui.view">
+        <field name="name">elearning.course.category.form</field>
+        <field name="model">elearning.course.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_category" model="ir.ui.view">
+        <field name="name">elearning.course.category.tree</field>
+        <field name="model">elearning.course.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_elearning_category" model="ir.actions.act_window">
+        <field name="name">Course Categories</field>
+        <field name="res_model">elearning.course.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_elearning_category" name="Categories" parent="menu_elearning_course" action="action_elearning_category"/>
+</odoo>
