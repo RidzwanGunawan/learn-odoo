@@ -1,0 +1,8 @@
+<odoo>
+    <template id="rental_schedule_view" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/rental_management/static/src/css/rental_schedule.css"/>
+            <script src="/rental_management/static/src/js/rental_schedule.js" type="text/javascript"/>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <menuitem id="menu_rental_root" name="Rental" sequence="10"/>
+    
+    <menuitem id="menu_rental_configuration" name="Configuration" parent="menu_rental_root"/>
+    <menuitem id="menu_rental_config_wizard" name="Configure Rental" parent="menu_rental_configuration"
+              action="action_rental_config_wizard"/>
+    
+    <menuitem id="menu_rental_products" name="Rental Products" parent="menu_rental_root"
+              action="action_rental_products"/>
+              
+    <menuitem id="menu_rental_orders" name="Rental Orders" parent="menu_rental_root"
+              action="action_rental_orders"/>
+              
+    <menuitem id="menu_rental_schedule" name="Rental Schedule" parent="menu_rental_root"
+              action="action_rental_schedule"/>
+</odoo>

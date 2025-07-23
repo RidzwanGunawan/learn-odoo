@@ -1,0 +1,40 @@
+<odoo>
+    <record id="product_rental_car" model="product.product">
+        <field name="name">Rental Car</field>
+        <field name="type">service</field>
+        <field name="list_price">0</field>
+        <field name="rental_ok">True</field>
+    </record>
+
+    <record id="rental_product_car" model="rental.product">
+        <field name="product_id" ref="product_rental_car"/>
+        <field name="rental_ok">True</field>
+    </record>
+
+    <record id="rental_pricing_car_hour" model="rental.pricing">
+        <field name="rental_product_id" ref="rental_product_car"/>
+        <field name="duration">1</field>
+        <field name="unit">hour</field>
+        <field name="price">10</field>
+    </record>
+
+    <record id="rental_pricing_car_day" model="rental.pricing">
+        <field name="rental_product_id" ref="rental_product_car"/>
+        <field name="duration">1</field>
+        <field name="unit">day</field>
+        <field name="price">80</field>
+    </record>
+
+    <record id="rental_pricing_car_week" model="rental.pricing">
+        <field name="rental_product_id" ref="rental_product_car"/>
+        <field name="duration">1</field>
+        <field name="unit">week</field>
+        <field name="price">400</field>
+    </record>
+
+    <record id="rental_order_1" model="rental.order">
+        <field name="partner_id" ref="base.res_partner_1"/>
+        <field name="start_date" eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 09:00:00')"/>
+        <field name="end_date" eval="(datetime.now() + timedelta(days=3)).strftime('%Y-%m-%d 17:00:00')"/>
+    </record>
+</odoo>
