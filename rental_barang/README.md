@@ -38,7 +38,7 @@ Modul **Rental Barang** adalah solusi manajemen penyewaan barang untuk Odoo Comm
     - Penyewa
 
 ## 📁 Struktur Folder
-,,,
+```
 rental_barang/
 │
 ├── models/
@@ -67,7 +67,7 @@ rental_barang/
 │ └── ir.model.access.csv
 │
 └── manifest.py
-,,,
+```
 
 ## 🛠 Dependencies
 
