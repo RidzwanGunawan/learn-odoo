@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rental_barang_template">
+        <t t-call="web.html_container">
+            <main class="oe_structure">
+                <t t-set="o" t-value="docs[0]"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 style="text-align:center;">BUKTI SEWA BARANG</h2>
+                        <table style="width:100%; border:1px solid #ccc; border-collapse:collapse; font-size:14px;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Nama Penyewa</td>
+                                    <td style="padding:5px; border:1px solid #ccc;"><t t-esc="o.partner_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Nama Barang</td>
+                                    <td style="padding:5px; border:1px solid #ccc;"><t t-esc="o.product_id.display_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Tanggal Mulai</td>
+                                    <td style="padding:5px; border:1px solid #ccc;"><t t-esc="o.tanggal_mulai"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Tanggal Selesai</td>
+                                    <td style="padding:5px; border:1px solid #ccc;"><t t-esc="o.tanggal_selesai"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Durasi (hari)</td>
+                                    <td style="padding:5px; border:1px solid #ccc;"><t t-esc="o.durasi_hari"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Harga per Hari</td>
+                                    <td style="padding:5px; border:1px solid #ccc;">Rp <t t-esc="'{:,.0f}'.format(o.harga_per_hari or 0)"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:5px; border:1px solid #ccc;">Total Biaya</td>
+                                    <td style="padding:5px; border:1px solid #ccc;">Rp <t t-esc="'{:,.0f}'.format(o.total_biaya or 0)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </main>
+        </t>
+    </template>
+</odoo>

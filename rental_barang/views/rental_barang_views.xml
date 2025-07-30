@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="rental_barang_view_search" model="ir.ui.view">
+    <field name="name">rental.barang.view.search</field>
+    <field name="model">rental.barang</field>
+    <field name="arch" type="xml">
+      <search string="Cari Rental Barang">
+        <!-- Basic Fields -->
+        <field name="partner_id" string="Penyewa"/>
+        <field name="product_id" string="Produk"/>
+        <field name="state" string="Status"/>
+
+        <!-- Filter Dropdown -->
+        <filter name="filter_draft" string="Draft" domain="[('state','=','draft')]" help="Hanya data draft"/>
+        <filter name="filter_confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+        <filter name="filter_cancelled" string="Cancelled" domain="[('state','=','cancelled')]"/>
+
+        <!-- Group By -->
+        <group expand="1" string="Group By">
+          <filter name="group_partner" string="Penyewa" context="{'group_by': 'partner_id'}"/>
+          <filter name="group_product" string="Produk" context="{'group_by': 'product_id'}"/>
+          <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+        </group>
+
+        <searchpanel>
+          <field name="state" icon="fa-flag"/>
+          <field name="product_id" icon="fa-cube"/>
+          <field name="partner_id" icon="fa-user"/>
+        </searchpanel>
+      </search>
+    </field>
+  </record>
+
+
+  <record id="rental_barang_view_tree" model="ir.ui.view">
+    <field name="name">rental.barang.view.tree</field>
+    <field name="model">rental.barang</field>
+    <field name="arch" type="xml">
+      <list string="List Rental Barang" decoration-bf="state == 'cancelled'" decoration-danger="state == 'cancelled'" decoration-success="state == 'returned'">
+        <field name="partner_id" string="Penyewa"/>
+        <field name="product_id" string="Produk"/>
+        <field name="tanggal_mulai" string="Mulai" widget="date"/>
+        <field name="tanggal_selesai" string="Selesai" widget="date"/>
+        <field name="durasi_hari" string="Durasi (Hari)"/>
+        <field name="total_biaya"/>
+        <field name="state" string="Status"/>
+      </list>
+    </field>
+  </record>
+
+
+  <record id="rental_barang_view_kanban" model="ir.ui.view">
+    <field name="name">rental.barang.view.kanban</field>
+    <field name="model">rental.barang</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="state" class="o_kanban_dashboard">
+        <templates>
+
+          <!-- Header Setiap Group (Draft, Confirmed, Returned) -->
+          <t t-name="kanban-group-header">
+            <div class="o_kanban_header d-flex justify-content-between align-items-center">
+              <strong class="text-capitalize">
+                <t t-esc="record.state.raw_value"/>
+              </strong>
+              <span class="badge badge-primary">
+                <t t-esc="group.count"/>
+              </span>
+            </div>
+            <div class="progress my-1" style="height: 4px;">
+              <div class="progress-bar bg-info" role="progressbar" t-att-style="'width:%s%%' % (group.count * 10 if group.count else 5)"></div>
+            </div>
+          </t>
+
+          <!-- Kartu Kanban -->
+          <t t-name="kanban-box">
+            <div t-attf-class="oe_kanban_card oe_kanban_global_click o_kanban_record p-2 shadow-sm rounded bg-white">
+              <div class="o_kanban_details">
+                <!-- Partner -->
+                <div class="mb-1">
+                  <strong class="text-dark">
+                    <field name="partner_id"/>
+                  </strong>
+                </div>
+
+                <!-- Product -->
+                <div class="text-muted small mb-1">
+                  <i class="fa fa-cube mr-1"/>
+                  <field name="product_id" />
+                </div>
+
+                <!-- Tanggal Rental -->
+                <div class="text-muted small mb-1">
+                  <i class="fa fa-calendar mr-1"/>
+                  <field name="tanggal_mulai"/> - <field name="tanggal_selesai"/>
+                </div>
+
+                <!-- Total Biaya -->
+                <div class="text-primary font-weight-bold">
+                  <field name="total_biaya" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+
+        <!-- Fields yang digunakan -->
+        <field name="partner_id"/>
+        <field name="product_id"/>
+        <field name="tanggal_mulai"/>
+        <field name="tanggal_selesai"/>
+        <field name="total_biaya"/>
+        <field name="state"/>
+      </kanban>
+    </field>
+  </record>
+
+  <record id="rental_barang_view_form" model="ir.ui.view">
+    <field name="name">rental.barang.view.form</field>
+    <field name="model">rental.barang</field>
+    <field name="arch" type="xml">
+      <form string="Form Rental Barang">
+        <header>
+          <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,returned,cancelled"/>
+          <button name="action_confirm" type="object" string="Confirm" class="btn-secondary"/>
+          <button name="action_return" type="object" string="Return" class="btn-secondary"/>
+          <button name="action_reset_to_draft" type="object" string="Reset to Draft" class="btn-secondary"/>
+          <button name="print_rental_report" type="object" string="Cetak Bukti Sewa" class="btn-primary"/>
+          <button name="action_create_invoice" string="Buat Invoice" type="object" class="btn-primary"/>
+          <button name="%(action_rental_cancel_wizard)d" string="Batalkan" type="action" class="btn btn-danger"/>
+        </header>
+
+        <sheet>
+          <notebook>
+            <page string="Informasi Rental">
+              <group col="2">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="tanggal_mulai"/>
+                <field name="tanggal_selesai"/>
+                <field name="durasi_hari"/>
+                <field name="harga_per_hari"/>
+                <field name="total_biaya" readonly="1"/>
+                <label for="total_biaya" string="* Total Harga sudah termasuk PPN 11%" class="text-muted"/>
+              </group>
+            </page>
+
+            <page string="Detail Penyewa">
+              <group col="2">
+
+                <field name="partner_id" readonly="1"/>
+                <field name="no_ktp"/>
+                <field name="no_sim"/>
+                <field name="contact"/>
+                <field name="adresss"/>
+              </group>
+            </page>
+
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+
+  <record id="rental_barang_action" model="ir.actions.act_window">
+    <field name="name">Action Name</field>
+    <field name="res_model">rental.barang</field>
+    <field name="view_mode">list,kanban,form</field>
+  </record>
+
+</odoo>

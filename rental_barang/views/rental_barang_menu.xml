@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <menuitem id="rental_menu_root" name="Rental"/>
+  <menuitem id="rental_menu_data" name="Data Rental" action="rental_barang_action" parent="rental_menu_root"/>
+  <menuitem id="menu_rental_product" name="Produk Rental" action="action_product_product_rental" parent="rental_menu_root" />
+  <menuitem id="menu_export_rental_report" name="Export Laporan" action="action_rental_report_wizard"  parent="rental_menu_root" />
+
+</odoo>
